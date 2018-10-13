@@ -173,15 +173,15 @@ def k_cluster_apply():
 	lines = train.readlines()
 	size = len(lines)
 	random_k_points = random.sample(range(0, size-1), 32)
-	# print(random_k_points)
+	print(random_k_points)
 	clusters = [[0.0 for x in range(24)] for y in range(32)]
 	for i in range(32):
 		clusters[i] = lines[random_k_points[i]];
 		clusters[i] = clusters[i].split();
 		for j in range(24):
 			clusters[i][j] = float(clusters[i][j])
-			# print(clusters[i][j],end=' ')
-		# print();
+			print(clusters[i][j],end=' ')
+		print();
 
 	counter = 0
 	size_each_cluster = [0.0 for x in range(32)]
@@ -194,47 +194,48 @@ def k_cluster_apply():
 	cost_cur_j=0.0
 
 	print(size);
-	while(flag>0 or diff>0.001):
-		print(counter)
-		for i in range(32):
-			size_each_cluster[i]=0.0;
-		for i in range(32):
-			for j in range(24):
-				update_clusters[i][j]=0.0;
+	# while(flag>0 or diff>0.001):
+	# 	cost_cur_j=0
+	# 	print(counter)
+	# 	for i in range(32):
+	# 		size_each_cluster[i]=0.0;
+	# 	for i in range(32):
+	# 		for j in range(24):
+	# 			update_clusters[i][j]=0.0;
 
-		for i in range(size):
-			x = split_line_int(lines[i])
-			cluster_point = which_cluster(clusters,x)
-			cost_cur_j += dist(clusters[cluster_point],x)
-			# print(i,"-------",cluster_point)
-			size_each_cluster[cluster_point]+=1;
-			for j in range(24):
-				update_clusters[cluster_point][j] += x[j];
+	# 	for i in range(size):
+	# 		x = split_line_int(lines[i])
+	# 		cluster_point = which_cluster(clusters,x)
+	# 		cost_cur_j += dist(clusters[cluster_point],x)
+	# 		# print(i,"-------",cluster_point)
+	# 		size_each_cluster[cluster_point]+=1;
+	# 		for j in range(24):
+	# 			update_clusters[cluster_point][j] += x[j];
 
-		total=0
-		for i in range(32):
-			total += size_each_cluster[i];
-		print("total = ", total," --- ",size_each_cluster)
+	# 	total=0
+	# 	for i in range(32):
+	# 		total += size_each_cluster[i];
+	# 	print("total = ", total," --- ",size_each_cluster)
 
-		for i in range(32):
-			for j in range(24):
-				# t = 5.0/(size_each_cluster[i])
-				if size_each_cluster[i]!=0:
-					update_clusters[i][j] /= size_each_cluster[i]
-				else:
-					update_clusters[i][j]=0 
-				clusters[i][j] = update_clusters[i][j];
+	# 	for i in range(32):
+	# 		for j in range(24):
+	# 			# t = 5.0/(size_each_cluster[i])
+	# 			if size_each_cluster[i]!=0:
+	# 				update_clusters[i][j] /= size_each_cluster[i]
+	# 			else:
+	# 				update_clusters[i][j]=0 
+	# 			clusters[i][j] = update_clusters[i][j];
 
-		print(cost_prev_j, "   ", cost_cur_j)
-		diff = abs( cost_prev_j-cost_cur_j )
-		print("diff = ",diff)
-		flag-=1
-		# if(flag==1):
-		cost_prev_j = cost_cur_j
-		# else:
+	# 	print(cost_prev_j, "   ", cost_cur_j)
+	# 	diff = abs( cost_prev_j-cost_cur_j )
+	# 	print("diff = ",diff)
+	# 	flag-=1
+	# 	# if(flag==1):
+	# 	cost_prev_j = cost_cur_j
+	# 	# else:
 
-		flag=0
-		counter+=1
+	# 	flag=0
+	# 	counter+=1
 
 	# print(clusters)
 	cluster_file = open("clusters.txt",'w')
