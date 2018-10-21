@@ -4,9 +4,11 @@ import sys
 import math
 from mpmath import mpf, mpc, mp
 
+#1=2291
+#2=2488
 
-CLASS_SIZE=500
-K=64
+CLASS_SIZE=2488
+K=4
 D=2
 
 def distance(pointA,pointB):
@@ -18,7 +20,7 @@ def main():
 	print("Reading")
 	#Reading file 
 	dSet=[[0 for x in range(D+1)]for y in range(CLASS_SIZE)]
-	f=open("Class3.txt","r")
+	f=open("Class2.txt","r")
 	fl=f.readlines()
 	i=0
 	for lines in fl:
@@ -44,7 +46,7 @@ def main():
 	diff=20
 	counter=1
 
-	while diff>0.001:
+	while diff>0.1:
 		#Reallocating cluster to every point
 		for x in range(CLASS_SIZE):
 			min=sys.maxsize
@@ -72,11 +74,11 @@ def main():
 		oldCost=newCost
 		print(diff)
 		counter+=1
-		file=open("64/Class3afterKmeans.txt","w")
+		file=open("4/Class2afterKmeans.txt","w")
 		for i in range(K):
 			for j in range(D):
-				file.write(str(clusterCentres[i][j]))	
-				file.write(" ")
+				file.write(str(clusterCentres[i][j]))
+				file.write(" ")	
 			file.write("\n")
 
 		for i in range(CLASS_SIZE):
@@ -87,8 +89,9 @@ def main():
 			file.write("\n")
 
 	file.close
-	for i in range(CLASS_SIZE):
-		print(i," ",dSet[i])
+	# for i in range(CLASS_SIZE):
+	# 	print(i," ",dSet[i])
+
 	return
 	#Plotting
 	print("Plotting")
@@ -159,7 +162,7 @@ def main():
 		# elif dSet[i][D]==31:
 		# 	plt.plot(dSet[i][0],dSet[i][1],color="#75f740")
 	# plt.show()
-	plt.savefig('Class3afer32means.png')	
+	plt.savefig('Class3aferKmeans.png')	
 
 	#Initialising Variables for guassian mixture
 
